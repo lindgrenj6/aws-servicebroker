@@ -150,7 +150,7 @@ func (b *AwsBroker) Provision(request *osb.ProvisionRequest, c *broker.RequestCo
 		Parameters:   toCFNParams(params),
 		StackName:    aws.String(getStackName(service.Name, instance.ID)),
 		Tags:         tags,
-		TemplateURL:  b.generateS3HTTPUrl(service.Name),
+		TemplateURL:  "https://my.minio.server/path/to/template",
 	})
 	if err != nil {
 		desc := fmt.Sprintf("Failed to create the CloudFormation stack: %v", err)
@@ -502,7 +502,7 @@ func (b *AwsBroker) Update(request *osb.UpdateInstanceRequest, c *broker.Request
 		Capabilities: aws.StringSlice([]string{cloudformation.CapabilityCapabilityNamedIam}),
 		Parameters:   toCFNParams(params),
 		StackName:    aws.String(instance.StackID),
-		TemplateURL:  b.generateS3HTTPUrl(service.Name),
+		TemplateURL:  "https://my.minio.server/path/to/template",
 	})
 	if err != nil {
 		desc := fmt.Sprintf("Failed to update the CloudFormation stack %q: %v", instance.StackID, err)
